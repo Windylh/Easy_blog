@@ -12,5 +12,6 @@ class Base extends Controller
         {
             $this ->redirect('admin/index/login');
         }
+        #$this->view->share();
     }
 }

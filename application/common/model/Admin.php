@@ -57,7 +57,7 @@ class Admin extends Model
         }
         else
         {
-            return "注册失败";
+            return "修改失败";
         }
     }
 

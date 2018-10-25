@@ -80,6 +80,9 @@ class User extends Model
         $result = $this->where($data)->find();
         if($result)
         {
+            //判断是否禁用
+            if($result['status'] != 1)
+                return '账户已被禁用';
             $Session=[
                 'id'=>$result['id'],
                 'username'=>$result['username']

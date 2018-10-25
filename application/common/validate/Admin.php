@@ -23,7 +23,7 @@ class Admin extends Validate
     //登陆
     public function sceneLogin()
     {
-        return $this->only(['username','password']);
+        return $this->only(['username','password'])->remove('username','unique');
     }
 
     public function sceneAdd()
