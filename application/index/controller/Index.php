@@ -64,4 +64,17 @@ class Index extends Base
 
         return view();
     }
+
+    public function logout()
+    {
+        session(null);
+        if(session('?index.id'))
+        {
+            $this->error('退出失败');
+        }
+        else
+        {
+            $this->success('退出成功','index/index/index');
+        }
+    }
 }

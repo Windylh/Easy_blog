@@ -80,10 +80,11 @@ class User extends Model
         $result = $this->where($data)->find();
         if($result)
         {
-            $sessionData=[
+            $Session=[
                 'id'=>$result['id'],
                 'username'=>$result['username']
             ];
+            session('index',$Session);
             return 1;
         }
         else

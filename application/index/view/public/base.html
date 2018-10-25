@@ -29,8 +29,13 @@
                 {/volist}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{:url('index/index/login')}">登录</a></li>
-                <li><a href="{:url('index/index/register')}">注册</a></li>
+                {if session('?index.id')}
+                    <li><a href="#">{:session('index.username')}</a></li>
+                    <li><a href="{:url('index/index/logout')}" id="logout">登出</a></li>
+                {else /}
+                    <li><a href="{:url('index/index/login')}">登录</a></li>
+                    <li><a href="{:url('index/index/register')}">注册</a></li>
+                {/if}
                 <!-- <li><a href="#">投稿</a></li> -->
             </ul>
         </div>
@@ -45,7 +50,26 @@
 <script src="/public/static/index/js/jquery-3.3.1.min.js"></script>
 <script src="/public/static/index/js/bootstrap.min.js"></script>
 <script src="/public/static/lib/layer/layer.js"></script>
+<script>
+    $('#logout').click(function () {
+        $.ajax({
+            url:"{:url('index/index/logout')}",
+            type:'post',
+            dataType:'json',
+            success:function () {
+                layer.msg('退出成功！', {
+                    icon:6,
+                    time:2000
+                }, function () {
+                    location.href = location.href;
+                });
+            }
+        });
+        return false;
+    });
+</script>
 {block name="js"}
+
 {/block}
 </body>
 </html>

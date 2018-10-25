@@ -14,6 +14,8 @@ Route::rule('/', 'index/index/index','GET');
 Route::rule('article/:id','index/article/info','GET');
 Route::rule('register', 'index/index/register','GET|POST');
 Route::rule('login','index/index/login','GET|POST');
+Route::rule('logout','index/index/logout','POST');
+Route::rule('comment','index/article/comment','POST');
 //后台
 Route::group('admin',function ()
 {
