@@ -8,10 +8,7 @@ class Cate extends Base
     public function list()
     {
         $cates = model('Cate')->order('create_time','desc') -> paginate(10);
-        $viewData =[
-          'cates' =>$cates
-        ];
-        $this->assign($viewData);
+        $this->assign('cates',$cates);
         return view();
     }
     //新增
@@ -61,6 +58,10 @@ class Cate extends Base
     public function del()
     {
         $cateInfo = model('cate')->with('article')->find(input('post.id'));
+        foreach($cateInfo['article'] as $k =>$v)
+        {
+            $v->together('comment')->delete();
+        }
         $result = $cateInfo->together('article')->delete();
         if($result)
         {

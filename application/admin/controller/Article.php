@@ -62,8 +62,8 @@ class Article extends Base
     //删除
     public function del()
     {
-        $articleInfo = model('Article')->find(input("post.id"));
-        $result = $articleInfo ->delete();
+        $articleInfo = model('Article')->with('comment')->find(input("post.id"));
+        $result = $articleInfo->together('comment') ->delete();
         if($result)
         {
             $this->success('文章删除成功','admin/article/list');

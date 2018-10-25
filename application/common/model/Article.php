@@ -8,7 +8,11 @@ use think\model\concern\SoftDelete;
 class Article extends Model
 {
     use SoftDelete;
-
+    //关联comment
+    public function comment()
+    {
+        return $this->hasMany('comment','articleid','id');
+    }
     //关联cate
     public function cate()
     {

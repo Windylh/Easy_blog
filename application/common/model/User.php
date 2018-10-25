@@ -9,6 +9,11 @@ class User extends Model
 {
     use SoftDelete;
 
+    //关联评论
+    public function comment()
+    {
+        return $this->hasMany('comment','userid','id');
+    }
     public function add($data)
     {
         $validate = new \app\common\validate\User();
@@ -46,5 +51,45 @@ class User extends Model
         {
             return '用户编辑失败';
         }
+    }
+    public function register($data)
+    {
+        $validate = new \app\common\validate\User();
+        if(!$validate->scene('register')->check($data))
+        {
+            return $validate->getError();
+        }
+        $result = $this->allowField(true)->save($data);
+        if($result)
+        {
+            return 1;
+        }
+        else
+        {
+            return '用户添加失败';
+        }
+    }
+    public function login($data)
+    {
+        $validate = new \app\common\validate\User();
+        if(!$validate->scene('login')->check($data))
+        {
+            return $validate->getError();
+        }
+        #unset($data['verify']);
+        $result = $this->where($data)->find();
+        if($result)
+        {
+            $sessionData=[
+                'id'=>$result['id'],
+                'username'=>$result['username']
+            ];
+            return 1;
+        }
+        else
+        {
+            return "用户名或密码错误";
+        }
+
     }
 }

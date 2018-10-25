@@ -6,6 +6,14 @@ use think\facade\Request;
 
 class Admin extends Base
 {
+    //登陆后直接跳转
+    public function initialize()
+    {
+        if(session('admin.super')!=1)
+        {
+            $this ->redirect('admin/home/index');
+        }
+    }
     public function list()
     {
         $admins = model('admin')-> paginate(10);

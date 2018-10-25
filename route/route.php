@@ -8,7 +8,13 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
+//前台
+Route::rule('cate/:id','index/index/index','GET');
+Route::rule('/', 'index/index/index','GET');
+Route::rule('article/:id','index/article/info','GET');
+Route::rule('register', 'index/index/register','GET|POST');
+Route::rule('login','index/index/login','GET|POST');
+//后台
 Route::group('admin',function ()
 {
     Route::rule('/', 'admin/index/login','GET|POST');
@@ -31,5 +37,8 @@ Route::group('admin',function ()
     Route::rule('adminadd', 'admin/admin/add', 'GET|POST');
     Route::rule('adminedit/[:id]', 'admin/admin/edit', 'GET|POST');
     Route::rule('admindel', 'admin/admin/del', 'GET|POST');
-    Route::rule('adminstatus', 'admin/admin/status', 'post');
+    Route::rule('adminstatus', 'admin/admin/status', 'POST');
+    Route::rule('commentlist','admin/comment/list','GET');
+    Route::rule('commentdel','admin/comment/del','POST');
 });
+

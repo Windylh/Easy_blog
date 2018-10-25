@@ -15,3 +15,8 @@ function replace($data)
 {
     return str_replace('span', 'a', $data);
 }
+
+function str2array($data)
+{
+    return explode('|',$data);
+}

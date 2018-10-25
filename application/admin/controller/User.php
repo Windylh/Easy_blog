@@ -56,8 +56,8 @@ class User extends Base
     //删除用户
     public function del()
     {
-        $userInfo = model('user')->find(input("post.id"));
-        $result = $userInfo ->delete();
+        $userInfo = model('user')->with('comment')->find(input("post.id"));
+        $result = $userInfo->together('comment')->delete();
         if($result)
         {
             $this->success('用户删除成功','admin/user/list');
