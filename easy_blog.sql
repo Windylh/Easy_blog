@@ -70,7 +70,7 @@ CREATE TABLE `comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` text NOT NULL,
   `articleid` int(11) NOT NULL,
-  `memberid` int(11) NOT NULL,
+  `userid` int(11) NOT NULL,
   `create_time` int(11) NOT NULL,
   `update_time` int(11) NOT NULL,
   `delete_time` int(11) DEFAULT NULL,
@@ -82,10 +82,10 @@ CREATE TABLE `comment` (
 -- ----------------------------
 
 -- ----------------------------
--- Table structure for `member`
+-- Table structure for `user`
 -- ----------------------------
-DROP TABLE IF EXISTS `member`;
-CREATE TABLE `member` (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(10) NOT NULL,
   `password` varchar(10) NOT NULL,
@@ -98,6 +98,6 @@ CREATE TABLE `member` (
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of member
+-- Records of user
 -- ----------------------------
 

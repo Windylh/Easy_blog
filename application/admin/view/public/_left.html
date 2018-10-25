@@ -47,18 +47,18 @@
         <li>
             <a href="#" class="menu-dropdown">
                 <i class="menu-icon glyphicon glyphicon glyphicon-user"></i>
-                <span class="menu-text">会员管理</span>
+                <span class="menu-text">用户管理</span>
                 <i class="menu-expand"></i>
             </a>
             <ul class="submenu">
                 <li>
-                    <a href="#">
-                        <span class="menu-text">会员列表</span>
+                    <a href="{:url('admin/user/list')}">
+                        <span class="menu-text">用户列表</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <span class="menu-text">会员添加</span>
+                    <a href="{:url('admin/user/add')}">
+                        <span class="menu-text">用户添加</span>
                     </a>
                 </li>
             </ul>
@@ -71,15 +71,17 @@
             </a>
             <ul class="submenu">
                 <li>
-                    <a href="#">
+                    <a href="{:url('admin/admin/list')}">
                         <span class="menu-text">管理员列表</span>
                     </a>
                 </li>
+                {if session('admin.super') == 1}
                 <li>
-                    <a href="#">
+                    <a href="{:url('admin/admin/add')}">
                         <span class="menu-text">管理员添加</span>
                     </a>
                 </li>
+                {/if}
             </ul>
         </li>
         <li>

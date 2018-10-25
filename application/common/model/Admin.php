@@ -38,16 +38,19 @@ class Admin extends Model
             return '用户名或密码错误';
     }
 
-    //注册
-    public function register($data)
+
+    public function edit($data)
     {
         $validate = new \app\common\validate\Admin();
-        if(!$validate -> scene('register') -> check($data))
+        if(!$validate -> scene('edit')->check($data))
         {
-            return $validate -> getError();
+            return $validate->getError();
         }
-        $result = $this -> allowField(true)->save($data);
-
+        $adminInfo = $this ->find($data['id']);
+        $adminInfo -> username = $data['username'];
+        $adminInfo -> password = $data['password'];
+        $adminInfo -> email = $data['email'];
+        $result = $adminInfo ->save();
         if($result)
         {
             return 1;
@@ -55,6 +58,24 @@ class Admin extends Model
         else
         {
             return "注册失败";
+        }
+    }
+
+    public function add($data)
+    {
+        $validate = new \app\common\validate\Admin();
+        if(!$validate->scene('add')->check($data))
+        {
+            return $validate->getError();
+        }
+        $result = $this->allowField(true)->save($data);
+        if($result)
+        {
+            return 1;
+        }
+        else
+        {
+            return '用户添加失败';
         }
     }
 }

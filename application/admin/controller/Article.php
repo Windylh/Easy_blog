@@ -62,7 +62,7 @@ class Article extends Base
     //删除
     public function del()
     {
-        $articleInfo = model('Article')->find(input("psot.id"));
+        $articleInfo = model('Article')->find(input("post.id"));
         $result = $articleInfo ->delete();
         if($result)
         {

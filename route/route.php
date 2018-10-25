@@ -12,7 +12,6 @@
 Route::group('admin',function ()
 {
     Route::rule('/', 'admin/index/login','GET|POST');
-    Route::rule('register', 'admin/index/register','GET|POST');
     Route::rule('index', 'admin/home/index', 'GET');
     Route::rule('logout', 'admin/home/logout', 'POST');
     Route::rule('catelist', 'admin/cate/list', 'GET');
@@ -23,4 +22,14 @@ Route::group('admin',function ()
     Route::rule('articleadd', 'admin/article/add', 'GET|POST');
     Route::rule('articleedit/[:id]', 'admin/article/edit', 'GET|POST');
     Route::rule('articledel', 'admin/article/del', 'POST');
+    Route::rule('userlist', 'admin/user/list', 'GET');
+    Route::rule('useradd', 'admin/user/add', 'GET|POST');
+    Route::rule('useredit/[:id]', 'admin/user/edit', 'GET|POST');
+    Route::rule('userdel', 'admin/user/del', 'GET|POST');
+    Route::rule('userstatus', 'admin/user/status', 'post');
+    Route::rule('adminlist', 'admin/admin/list', 'GET');
+    Route::rule('adminadd', 'admin/admin/add', 'GET|POST');
+    Route::rule('adminedit/[:id]', 'admin/admin/edit', 'GET|POST');
+    Route::rule('admindel', 'admin/admin/del', 'GET|POST');
+    Route::rule('adminstatus', 'admin/admin/status', 'post');
 });

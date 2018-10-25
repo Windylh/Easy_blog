@@ -10,22 +10,22 @@
             <div class="page-breadcrumbs">
                 <ul class="breadcrumb">
                     <li class="active">
-                        <i class="fa fa-home"></i>&nbsp;栏目管理
+                        <i class="fa fa-home"></i>&nbsp;用户管理
                     </li>
-                    <li>栏目列表</li>
+                    <li>用户列表</li>
                 </ul>
             </div>
             <!-- /Page Breadcrumb -->
             <!-- Page Body -->
             <div class="page-body">
-                <a href="cateadd.html" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;栏目添加</a>
+                <a href="{:url('admin/user/add')}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>&nbsp;用户添加</a>
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="widget">
                             <div class="widget-header">
-                                <span class="widget-caption">栏目列表</span>
+                                <span class="widget-caption">用户列表</span>
                                 <div class="widget-buttons">
-                                    {$cates->render()|raw|replace}
+                                    {$users->render()|raw|replace}
                                 </div>
                             </div>
                             <div class="widget-body">
@@ -33,18 +33,27 @@
                                     <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>栏目名称</th>
+                                        <th>用户名称</th>
+                                        <th>邮箱</th>
+                                        <th>状态</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    {volist name="cates" id="vo"}
+                                    {volist name="users" id="vo"}
                                     <tr>
                                         <td>{$vo.id}</td>
-                                        <td>{$vo.catename}</td>
+                                        <td>{$vo.username}</td>
+                                        <td>{$vo.email}</td>
+                                        <td>{if $vo.status == 1}正常{else /}禁用{/if}</td>
                                         <td>
-                                            <a href="{:url('admin/cate/edit',['id' => $vo.id])}" class="btn btn-azure btn-xs">编辑</a>
-                                            <a href="#" class="btn btn-danger btn-xs cate-del" dataid="{$vo.id}">删除</a>
+                                            {if $vo.status == 0}
+                                            <a href="#" class="btn btn-success btn-xs user-status" dataid="{$vo.id}" statusid="{$vo.status}">启用</a>
+                                            {else /}
+                                            <a href="#" class="btn btn-warning btn-xs user-status" dataid="{$vo.id}" statusid="{$vo.status}">禁用</a>
+                                            {/if}
+                                            <a href="{:url('admin/user/edit',['id' => $vo.id])}" class="btn btn-azure btn-xs">编辑</a>
+                                            <a href="#" class="btn btn-danger btn-xs user-del" dataid="{$vo.id}">删除</a>
                                         </td>
                                     </tr>
                                     {/volist}
@@ -69,18 +78,23 @@
     $(function () {
         $('.pagination').addClass('pagination-sm');
 
-        $('.cate-del').click(function () {
+        $('.user-status').click(function () {
             var id = $(this).attr('dataid');
-            layer.confirm('确定删除?', {
-                title:'删除栏目',
-                icon:3,
-                anim:6
+            var status = $(this).attr('statusid');
+            if (status == 1) {
+                var msg = '确定禁用？';
+            }else {
+                var msg = '确定启用？';
+            }
+            layer.confirm(msg, {
+                title:'状态操作',
+                icon:3
             }, function (index) {
                 layer.close(index);
                 $.ajax({
-                    url:"{:url('admin/cate/del')}",
+                    url:"{:url('admin/user/status')}",
                     type:'post',
-                    data:{id:id},
+                    data:{id:id, status:status},
                     dataType:'json',
                     success:function (data) {
                         if (data.code == 1) {
@@ -88,7 +102,7 @@
                                 icon:6,
                                 time:2000
                             }, function () {
-                                location.href = location.href;
+                                location.href = data.url;
                             });
                         }else {
                             layer.open({
@@ -104,6 +118,40 @@
             return false;
         });
 
+        $('.user-del').click(function () {
+            var id = $(this).attr('dataid');
+            layer.confirm('确定删除?', {
+                title:'删除用户',
+                icon:3,
+                anim:6
+            }, function (index) {
+                layer.close(index);
+                $.ajax({
+                    url:"{:url('admin/user/del')}",
+                    type:'post',
+                    data:{id:id},
+                    dataType:'json',
+                    success:function (data) {
+                        if (data.code == 1) {
+                            layer.msg(data.msg, {
+                                icon:6,
+                                time:2000
+                            }, function () {
+                                location.href = data.url;
+                            });
+                        }else {
+                            layer.open({
+                                title:'操作失败',
+                                content:data.msg,
+                                icon:5,
+                                anim:6
+                            });
+                        }
+                    }
+                });
+            });
+            return false;
+        });
     });
 
 

@@ -7,7 +7,7 @@ class Cate extends Base
     //列表
     public function list()
     {
-        $cates = model('Cate') -> paginate(10);
+        $cates = model('Cate')->order('create_time','desc') -> paginate(10);
         $viewData =[
           'cates' =>$cates
         ];
