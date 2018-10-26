@@ -21,7 +21,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', md5('Skctf123'), 'admin@admin.com', '1', '1', '0', '0', NULL);
+INSERT INTO `admin` VALUES ('1', 'admin', md5('admin'), 'admin@admin.com', '1', '1', '0', '0', NULL);
 
 -- ----------------------------
 -- Table structure for `article`
