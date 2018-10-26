@@ -51,6 +51,10 @@ class Article extends Base
             }
         }
         $articleInfo = model('article')->find(input('id'));
+        if($articleInfo['author'] != session('admin.username'))
+        {
+            $this->error('您没有权限修改此文章','admin/article/list');
+        }
         $cates = model('cate')->select();
         $viewData = [
           'articleInfo' => $articleInfo,

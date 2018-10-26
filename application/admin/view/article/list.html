@@ -45,7 +45,9 @@
                                         <td>{$vo.title}</td>
                                         <td>{$vo.cate.catename}</td>
                                         <td>
-                                            <a href="{:url('admin/article/edit',['id' => $vo.id])}" class="btn btn-sm btn-warning">编辑</a>
+                                            {if $vo.author == session('admin.username')}
+                                                <a href="{:url('admin/article/edit',['id' => $vo.id])}" class="btn btn-sm btn-warning">编辑</a>
+                                            {/if}
                                             <a href="#" class="btn btn-sm btn-danger articleDel" dataid="{$vo.id}">删除</a>
                                         </td>
                                     </tr>
