@@ -8,7 +8,7 @@ DROP TABLE IF EXISTS `admin`;
 CREATE TABLE `admin` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(10) NOT NULL,
-  `password` varchar(10) NOT NULL,
+  `password` varchar(32) NOT NULL,
   `email` varchar(20) NOT NULL,
   `status` enum('0','1') NOT NULL DEFAULT '1' COMMENT '0是禁用，1是可用',
   `super` int(11) NOT NULL DEFAULT '0' COMMENT '0是普通管理员，1是超级管理员',
@@ -21,7 +21,7 @@ CREATE TABLE `admin` (
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('1', 'admin', 'Skctf123', 'admin@admin.com', '1', '1', '0', '0', NULL);
+INSERT INTO `admin` VALUES ('1', 'admin', md5('Skctf123'), 'admin@admin.com', '1', '1', '0', '0', NULL);
 
 -- ----------------------------
 -- Table structure for `article`
@@ -88,7 +88,7 @@ DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(10) NOT NULL,
-  `password` varchar(10) NOT NULL,
+  `password` varchar(32) NOT NULL,
   `email` varchar(20) NOT NULL,
   `status` enum('1','0') NOT NULL DEFAULT '1' COMMENT '0是禁用，1是可用',
   `create_time` int(11) NOT NULL,

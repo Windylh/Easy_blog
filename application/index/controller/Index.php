@@ -30,6 +30,8 @@ class Index extends Base
         if(request()->isAjax())
         {
             $data = Request::only(['username', 'password', 'conpass', 'email']);
+            $data['password'] = md5($data['password']);
+            $data['conpass'] = md5($data['conpass']);
             #$data = Request::only(['username', 'password', 'conpass', 'email','verify']);
             $result = model('user')->register($data);
             if($result == 1)
@@ -47,9 +49,14 @@ class Index extends Base
 
     public function login()
     {
+        if(session('index.id'))
+        {
+            $this->redirect('index/index/index');
+        }
         if(request()->isAjax())
         {
             $data = Request::only(['username','password']);
+            $data['password'] = md5($data['password']);
             #$data = Request::only(['username','password','verify']);
             $result = model('user')->login($data);
             if($result == 1)

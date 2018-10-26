@@ -6,6 +6,7 @@ use think\facade\Request;
 
 class User extends Base
 {
+
     public function list()
     {
         $users = model('user')-> paginate(10);
@@ -19,6 +20,8 @@ class User extends Base
         if(request()->isAjax())
         {
             $data = Request::only(['username','password','conpass','email']);
+            $data['password'] = md5($data['password']);
+            $data['conpass'] = md5($data['conpass']);
             $result = model('user')->add($data);
             if($result == 1)
             {
@@ -38,6 +41,8 @@ class User extends Base
         if(request()->isAjax())
         {
             $data = Request::only(['id','username','password','conpass','email']);
+            $data['password'] = md5($data['password']);
+            $data['conpass'] = md5($data['conpass']);
             $result = model('user')->edit($data);
             if($result == 1)
             {
@@ -56,6 +61,10 @@ class User extends Base
     //删除用户
     public function del()
     {
+        if(session('admin.id')== NULL)
+        {
+            $this->error('请先登录','admin/index');
+        }
         $userInfo = model('user')->with('comment')->find(input("post.id"));
         $result = $userInfo->together('comment')->delete();
         if($result)

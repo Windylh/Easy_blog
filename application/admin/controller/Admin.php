@@ -6,7 +6,6 @@ use think\facade\Request;
 
 class Admin extends Base
 {
-    //登陆后直接跳转
     public function initialize()
     {
         if(session('admin.super')!=1)
@@ -27,6 +26,8 @@ class Admin extends Base
         if(request()->isAjax())
         {
             $data = Request::only(['username','password','conpass','email']);
+            $data['password'] = md5($data['password']);
+            $data['conpass'] = md5($data['conpass']);
             $result = model('admin')->add($data);
             if($result == 1)
             {
@@ -46,6 +47,8 @@ class Admin extends Base
         if(request()->isAjax())
         {
             $data = Request::only(['id','username','password','conpass','email']);
+            $data['password'] = md5($data['password']);
+            $data['conpass'] = md5($data['conpass']);
             $result = model('admin')->edit($data);
             if($result == 1)
             {

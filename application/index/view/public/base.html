@@ -32,11 +32,11 @@
                 {if session('?index.id')}
                     <li><a href="#">{:session('index.username')}</a></li>
                     <li><a href="{:url('index/index/logout')}" id="logout">登出</a></li>
+                    <li><a href="{:url('index/article/submit')}">投稿</a></li>
                 {else /}
                     <li><a href="{:url('index/index/login')}">登录</a></li>
                     <li><a href="{:url('index/index/register')}">注册</a></li>
                 {/if}
-                <!-- <li><a href="#">投稿</a></li> -->
             </ul>
         </div>
     </div>

@@ -23,6 +23,7 @@ class Index extends Controller
                 'username' =>input('post.username'),
                 'password' =>input('post.password')
             ];
+            $data['password'] = md5($data['password']);
             $result = model('Admin')->login($data);
             if($result == 1)
             {

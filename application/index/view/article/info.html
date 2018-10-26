@@ -10,8 +10,12 @@
         <h1 class="article-title">{$articleInfo.title}</h1>
         <div class="status">
             {volist name="articleInfo.tags|str2array" id="vo"}
-            <span class="label label-default">{$vo}</span>
+                <span class="label label-default">{$vo}</span>
             {/volist}
+            {if $articleInfo.author == session('index.username')}
+                <a href="{:url('index/article/edit',['id'=>$articleInfo.id])}" class="btn btn-sm btn-warning">编辑</a>
+                <a href="#" class="btn btn-sm btn-danger articleDel" dataid="{$articleInfo.id}">删除</a>
+            {/if}
         </div>
         <div class="article-content">
             <blockquote>
@@ -84,6 +88,41 @@
             }
             return false;
         });
+        $('.articleDel').click(function () {
+            var id = $(this).attr('dataid');
+            layer.confirm('确定删除？', {
+                title:'删除文章',
+                icon:3,
+                anim:6
+            }, function (index) {
+                layer.close(index);
+                $.ajax({
+                    url:"{:url('index/article/del')}",
+                    type:'post',
+                    data:{id:id},
+                    dataType:'json',
+                    success:function (data) {
+                        if (data.code == 1) {
+                            layer.msg(data.msg, {
+                                icon:6,
+                                time:2000
+                            }, function () {
+                                location.href = data.url;
+                            });
+                        }else {
+                            layer.open({
+                                title:'删除失败',
+                                content:data.msg,
+                                icon:5,
+                                anim:6
+                            });
+                        }
+                    }
+                });
+            });
+            return false;
+        });
     });
+
 </script>
 {/block}
