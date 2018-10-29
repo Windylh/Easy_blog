@@ -19,7 +19,7 @@ return [
     // 用户名
     'username'        => 'blogdb',
     // 密码
-    'password'        => 'toor',
+    'password'        => 'Easy_Blog!@#',
     // 端口
     'hostport'        => '3306',
     // 连接dsn

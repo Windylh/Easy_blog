@@ -13,11 +13,11 @@ use think\validate;
 class User extends Validate
 {
     protected $rule = [
-        'username|用户名' => 'require|unique:user|unique:admin',
-        'password|密码' => 'require',
-        'conpass|确认密码' => 'require|confirm:password',
-        'email|邮箱' => 'require|email|unique:user',
-        'verify|验证码' => 'require|captcha'
+        'username|用户名' => 'require|unique:user|unique:admin|length:6,16',
+        'password|密码' => 'require|length:6,16',
+        'conpass|确认密码' => 'require|confirm:password|length:6,16',
+        'email|邮箱' => 'require|email|unique:user|length:6,32',
+        'verify|验证码' => 'require|captcha|length:0,4'
     ];
 
     public function sceneAdd()
