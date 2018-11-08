@@ -16,7 +16,7 @@ class User extends Validate
         'username|用户名' => 'require|unique:user|unique:admin|length:4,16',
         'password|密码' => 'require',
         'conpass|确认密码' => 'require|confirm:password',
-        'email|邮箱' => 'require|email|unique:user|length:6:32',
+        'email|邮箱' => 'require|email|unique:user|length:6,32',
         'verify|验证码' => 'require|captcha|length:0,4'
     ];
 
